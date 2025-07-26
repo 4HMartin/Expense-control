@@ -36,3 +36,5 @@ export const BudgetProvider = ({children}: BudgetProviderProps) => {
         </BudgetContext.Provider>
     )
 }
+// 11. Importar el Provider en el main.tsx y envolver la aplicacion con el Provider para que todos los componentes tengan acceso al contexto
+//    - Esto permite que cualquier componente dentro de la aplicacion pueda acceder al estado global y despachar acciones para modificarlo.
