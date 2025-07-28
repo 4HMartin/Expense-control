@@ -1,5 +1,5 @@
 // Custom hook para acceder al contexto sin necesidad de importar useContext directamente en cada componente
-// Este hook permite acceder al estado y al dispatch del BudgetContext de manera sencilla
+// Este hook permite acceder al state y al dispatch del BudgetContext de manera sencilla
 import { useContext } from "react";
 import { BudgetContext } from "../context/BudgetContext";
 
