@@ -19,7 +19,7 @@ export default function ExpenseModal() {
       </div>
 
       <Transition appear show={state.modal} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-10" onClose={() => {dispatch({ type: 'close-modal' })}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -29,7 +29,7 @@ export default function ExpenseModal() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-75" />
+            <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)]" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
