@@ -5,9 +5,10 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import ErrorMessage from "./ErrorMessage";
+import { useBudget } from "../hooks/useBudget";
 
 export default function ExpenseForm() {
-
+    
     const [expense, setExpense] = useState<DraftExpense>({
         amount: 0,
         expenseName: '',
@@ -15,12 +16,15 @@ export default function ExpenseForm() {
         date: new Date()
     });
 
+    const { dispatch } = useBudget();
+
     const [error, setError] = useState('');
 
     // Function to handle changes in the input fields
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const isAmountField = ['amount'].includes(name);
+        console.log("name: ", name);
         
         setExpense({
             ...expense,
@@ -39,13 +43,15 @@ export default function ExpenseForm() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
 
+        // Validation
         // Transform the object (state) to an array like, if there are any empty strings return error
         if(Object.values(expense).includes('')){
             setError('All the fields are mandatory');
             return
         }
 
-
+        // Add new expense vía dispatch
+        dispatch({ type: 'add-expense', payload: { expense } })
     }
 
     return (
@@ -77,8 +83,8 @@ export default function ExpenseForm() {
                 </label>
                 <input
                     type="number"
-                    name="expenseAmount"
-                    id="expenseAmount"
+                    name="amount"
+                    id="amount"
                     placeholder="e.g., 50"
                     min="0"
                     step="0.01"
@@ -93,8 +99,8 @@ export default function ExpenseForm() {
                     Category:
                 </label>
                 <select
-                    name="expenseCategory"
-                    id="expenseCategory"
+                    name="category"
+                    id="category"
                     className="bg-slate-100 p-2"
                     value={expense.category}
                     onChange={handleChange}
