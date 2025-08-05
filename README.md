@@ -1,4 +1,4 @@
-# 📊 Tips and Consumption Calculator - React.js
+# 📊 Gestor de gastos - React.js
 🌐 *[expense-management.4hmartin.com](https://expense-management.4hmartin.com/)*
 ---
 ## Descripción
@@ -71,6 +71,17 @@ export type OrderActions =
   | { type: 'place-order' }
   | { type: 'add-tip', payload: { value: number } }
 ```
+
+## Anotaciones de types definidos
+
+**type Expense:** Corresponse al tipado completo (con id) del gasto, el id se agrega solo al insertarlo en bdd.
+
+**type DraftExpense:** Copia del type *Expense* omitiendo el id mediante el *type expression* *Omit* para los borradores de gastos antes de asignarle un id.
+
+**type Category:** Corresponse al tipo de categoría del gasto. Se implementa en data/categories.ts
+
+**type Value & ValuePiece:** Son los types predefinidos de la dependencia *react-date-picker*.
+
 ## 🚀 Principales Aprendizajes
 
 - Practical migration from a *custom hook (useCart.ts)* to the **`useReducer`** hook to manage complex state logic.  

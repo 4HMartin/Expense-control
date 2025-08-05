@@ -4,6 +4,7 @@ import { categories } from "../data/categories";
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import ErrorMessage from "./ErrorMessage";
 
 export default function ExpenseForm() {
 
@@ -13,6 +14,8 @@ export default function ExpenseForm() {
         category: '',
         date: new Date()
     });
+
+    const [error, setError] = useState('');
 
     // Function to handle changes in the input fields
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -33,11 +36,25 @@ export default function ExpenseForm() {
         })
     }
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault();
+
+        // Transform the object (state) to an array like, if there are any empty strings return error
+        if(Object.values(expense).includes('')){
+            setError('All the fields are mandatory');
+            return
+        }
+
+
+    }
+
     return (
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
             <legend className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2">
                 New Expense
             </legend>
+
+            {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <div className="flex flex-col gap-2">
                 <label htmlFor="name" className="text-xl">
@@ -103,6 +120,12 @@ export default function ExpenseForm() {
                     value={expense.date}
                 />
             </div>
+
+            <input
+                type="submit"
+                className="bg-blue-600 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg"
+                value={'Add expense'}
+            />
         </form>
     )
 }
