@@ -1,8 +1,37 @@
+import { useState } from "react";
+import type { DraftExpense, Value } from "../types";
 import { categories } from "../data/categories";
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
+export default function ExpenseForm() {
 
-export default function ExpenseModal() {
+    const [expense, setExpense] = useState<DraftExpense>({
+        amount: 0,
+        expenseName: '',
+        category: '',
+        date: new Date()
+    });
 
+    // Function to handle changes in the input fields
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        const isAmountField = ['amount'].includes(name);
+        
+        setExpense({
+            ...expense,
+            [name]: isAmountField ? Number(value) : value
+        })
+    }
+
+    // Function to handle date changes based on the 'Value' type provided by the DatePicker
+    const handleChangeDate = (value: Value) => {
+        setExpense({
+            ...expense,
+            date: value
+        })
+    }
 
     return (
         <form className="space-y-5">
@@ -20,6 +49,8 @@ export default function ExpenseModal() {
                     id="expenseName"
                     placeholder="e.g., Groceries"
                     className="bg-slate-100 p-2"
+                    value={expense.expenseName}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -35,6 +66,8 @@ export default function ExpenseModal() {
                     min="0"
                     step="0.01"
                     className="bg-slate-100 p-2"
+                    value={expense.amount}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -46,6 +79,8 @@ export default function ExpenseModal() {
                     name="expenseCategory"
                     id="expenseCategory"
                     className="bg-slate-100 p-2"
+                    value={expense.category}
+                    onChange={handleChange}
                 >
                     <option value="">-- Select a category --</option>
                     {categories.map(category => (
@@ -54,6 +89,19 @@ export default function ExpenseModal() {
                         </option>
                     ))}
                 </select>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <label htmlFor="date" className="text-xl">
+                    Date:
+                </label>
+                <DatePicker
+                    name="expenseDate"
+                    id="expenseDate"
+                    className="bg-slate-100 p-2"
+                    onChange={handleChangeDate}
+                    value={expense.date}
+                />
             </div>
         </form>
     )
