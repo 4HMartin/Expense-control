@@ -20,7 +20,7 @@ export const initialState: BudgetState = {
 }
 
 /**
- * @description Transform a DraftExpense to a Expense adding an ID vía uuid
+ * @description Transform a tupe DraftExpense to a type Expense adding an ID vía uuid
  * @param DraftExpense
  * @returns Expense object
  */
@@ -63,7 +63,8 @@ export const budgetReducer = (
 
         return {
             ...state,
-            expenses: [...state.expenses, expense]
+            expenses: [...state.expenses, expense],
+            modal: false
         }
     }
 
