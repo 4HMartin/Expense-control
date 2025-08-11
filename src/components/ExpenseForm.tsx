@@ -115,7 +115,7 @@ export default function ExpenseForm() {
                 >
                     <option value="">-- Select a category --</option>
                     {categories.map(category => (
-                        <option key={category.id} value={category.name} className="text-black">
+                        <option key={category.id} value={category.id} className="text-black">
                             {category.name}
                         </option>
                     ))}
