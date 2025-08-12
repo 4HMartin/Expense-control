@@ -6,18 +6,22 @@ export type BudgetActions =
     { type: 'show-modal' } |
     { type: 'close-modal' } |
     { type: 'add-expense', payload: { expense: DraftExpense }} |
-    { type: 'remove-expense', payload: { id: Expense['id'] }}
+    { type: 'remove-expense', payload: { id: Expense['id'] }} |
+    { type: 'get-expense-by-id', payload: { id: Expense['id'] }} |
+    { type: 'update-expense', payload: { expense: Expense }}
 
 export type BudgetState = {
     budget: number;
     modal: boolean;
     expenses: Expense[];
+    editingID: Expense['id']
 }
 
 export const initialState: BudgetState = {
     budget: 0,
     modal: false,
-    expenses: []
+    expenses: [],
+    editingID: ''
 }
 
 /**
@@ -55,7 +59,8 @@ export const budgetReducer = (
     if(action.type === 'close-modal'){
         return {
             ...state,
-            modal: false
+            modal: false,
+            editingID: ''
         }
     }
 
@@ -73,6 +78,24 @@ export const budgetReducer = (
         return {
             ...state,
             expenses: state.expenses.filter( expense => expense.id !== action.payload.id)
+        }
+    }
+
+    if(action.type === 'get-expense-by-id'){
+        return {
+            ...state,
+            editingID: action.payload.id,
+            modal: true
+        }
+    }
+
+    if(action.type === 'update-expense'){
+        return {
+            ...state,
+            /* Iterar sobre los gastos del state, si el id coincide con el del payload, sobre-escribe el gasto con el gasto que procede del payload en caso contrario retorna el gasto actual para no perderlo en la iteración */
+            expenses: state.expenses.map(expense => expense.id === action.payload.expense.id ? action.payload.expense : expense),
+            modal: false,
+            editingID: ''
         }
     }
 
