@@ -16,14 +16,16 @@ export default function ExpenseForm() {
         date: new Date()
     });
 
-    const { dispatch, state } = useBudget();
-
     const [error, setError] = useState('');
+    const [previousAmount, setPreviousAmount] = useState(0);
+    const { dispatch, state, remainingBudget } = useBudget();
+
 
     useEffect(() => {
         if(state.editingID){
             const editingExpense = state.expenses.filter( currentExpense => currentExpense.id === state.editingID)[0];
             setExpense(editingExpense);
+            setPreviousAmount(editingExpense.amount)
         }
     },[state.editingID]);
 
@@ -56,6 +58,12 @@ export default function ExpenseForm() {
             return
         }
 
+        // Validate no budget limit reached
+        if((expense.amount - previousAmount) > remainingBudget){
+            setError('Budget limit reached!');
+            return 
+        }
+
         // Add new expense or edit vía dispatch
         if(state.editingID){
             dispatch({ type: 'update-expense', payload: {expense: { id: state.editingID, ...expense }} })
@@ -70,6 +78,7 @@ export default function ExpenseForm() {
             category: '',
             date: new Date()
         })
+        setPreviousAmount(0)
     }
 
     return (

@@ -1,4 +1,4 @@
-import { createContext, useReducer, type Dispatch, type ReactNode } from "react"
+import { createContext, useMemo, useReducer, type Dispatch, type ReactNode } from "react"
 import { budgetReducer, initialState, type BudgetActions, type BudgetState } from "../reducers/budget-reducer"
 /**
  * Context API + useReducer
@@ -8,6 +8,8 @@ import { budgetReducer, initialState, type BudgetActions, type BudgetState } fro
 export type BudgetContextProps = {
     state: BudgetState
     dispatch: Dispatch<BudgetActions>
+    totalExpenses: number
+    remainingBudget: number
 }
 
 // 9. Crear el type de las props del Provider
@@ -28,10 +30,19 @@ export const BudgetProvider = ({children}: BudgetProviderProps) => {
     // 2. Instanciar el reducer
     const [state, dispatch] = useReducer(budgetReducer, initialState)
 
+    const totalExpenses = useMemo(() => state.expenses.reduce((total, expense) => expense.amount + total, 0), [state.expenses]);
+    const remainingBudget = state.budget - totalExpenses;
+
     // 7. Retornar el contexto con el estado y el dispatch con sintaxis de componente
     return (
         // 8. Pasar el estado y el dispatch como valor del contexto
-        <BudgetContext.Provider value={{ state, dispatch }}>
+        <BudgetContext.Provider
+            value={{
+                state,
+                dispatch,
+                totalExpenses,
+                remainingBudget
+            }}>
             {children}
         </BudgetContext.Provider>
     )
