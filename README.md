@@ -22,20 +22,54 @@ Se implementa un boilerplate mediante el uso de Context API y el uso de useReduc
 ## Características
 
 ✅ **Context API + useReducer + custom hook:** 
+- **BudgetContext.tsx** Utilizando Context API y el uso de useReducer se logra un diseño más eficiente y escalable.
 
-✅ List of menu items:
-- **Items:** List of menu items extracted from file with array of typed objects.
-- **Click on items:** Allows you to add the item to the order.
+✅ 'Define your budget:
+- Input de tipo numérico para definir el presupuesto inicial y habilitar el botón. 
 
-✅ **Order Summary:**
+✅ **Panel de seguimiento (BudgetTracker.tsx):**
 
-- **Selected Items:** Displays the selected menu items, where users can view the unit price, the total cost based on the quantity selected, and also remove individual items.
+- **Gráfico circular:** Mediante el uso de la libreria 'react-circular-progressbar' se renderiza un gráfico donde se muestra el porcentaje del presupuesto gastado.
+```tsx
+<CircularProgressbar
+    value={percentage}
+    styles={buildStyles({
+        pathColor: percentage === 100 ? '#DC2626' : '#3B82F6',
+        trailColor: '#F5F5F5',
+        textSize: '8',
+        textColor: percentage === 100 ? '#DC2626' : '#3B82F6'
+    })}
+    text={`${percentage}% Spent`}
+/>
+```
 
-- **Tip Selection:** A form with three options to select the tip percentage based on the subtotal amount.
+- **Botón 'RESET APP':** Como su nombre indica, restablece el presupuesto inicial a 0 mediante 'dispatch'.
+```tsx
+<button
+    type="button"
+    className="bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg cursor-pointer hover:bg-pink-700 transition-colors"
+    onClick={() => dispatch({type: 'reset-app'})}
+>
+    Reset App
+</button>
+```
 
-- **Total:** Calculates the final amount to pay by adding the selected tip to the subtotal.
+- **'Budget', 'Available' y 'Spent':** Mediante el componente reutilizable 'AmountDisplay' se muestran los valores calculados en base al presupuesto inicial y los gastos acumulados.
+```tsx
+<AmountDisplay 
+    label="Budget"
+    amount={state.budget}
+/>
+```
 
-- **'Place Order' Button:** Simulates sending the order, resetting the order summary section afterward.
+✅ **Filtro mediante selector de categoria (FilterByCategory.tsx):**
+- **Select:** Importar las categorías desde fichero '/data/categories' para iterar y mostrar opciones del select.
+- **Change event + dispatch:**
+```tsx
+const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: 'add-filter-category', payload: { id: e.target.value }})
+}
+```
 
 ## Tecnologías
 
