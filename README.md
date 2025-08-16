@@ -47,7 +47,7 @@ export type BudgetActions =
     { type: 'add-filter-category', payload: { id: Category['id'] }}
 ```
 
-✅ 'Define your budget:
+✅ **Define your budget**:
 - Numeric input to define the initial budget and enable the button.
 
 ✅ **Monitoring panel (BudgetTracker.tsx):**
@@ -129,10 +129,10 @@ import DatePicker from 'react-date-picker';
 ## Technologies
 
 - ⚛️ **React.js** + **TypeScript**
-- **Context API - createContext** Allows you to create a global access 'context'
+- ⚙️ **Context API - createContext** Allows you to create a global access 'context'
 - 🛠️ **useReducer** for advanced state management
 - 💽 **useMemo** to optimise cached calculations
-- **customHook** *useBudget.ts* Allows access to the “context” in a simple import
+- 🔧 **customHook** *useBudget.ts* Allows access to the “context” in a simple import
 
 ## 🛠️ React Hooks used
 
@@ -174,7 +174,7 @@ export type BudgetActions =
     { type: 'add-filter-category', payload: { id: Category['id'] }}
 ```
 
-## Anotaciones de types definidos
+## Annotations of defined types
 
 **type Expense:** Corresponds to the complete typing (with ID) of the expense; the ID is added only when inserting it into the database.
 
@@ -236,7 +236,7 @@ export type BudgetActions =
     { type: 'add-filter-category', payload: { id: Category['id'] }}
 ```
 
-✅ 'Define your budget:
+✅ **Define your budget**:
 - Input de tipo numérico para definir el presupuesto inicial y habilitar el botón. 
 
 ✅ **Panel de seguimiento (BudgetTracker.tsx):**
@@ -318,10 +318,10 @@ import DatePicker from 'react-date-picker';
 ## Tecnologías
 
 - ⚛️ **React.js** + **TypeScript**
-- **Context API - createContext** Permite crear un 'contexto' de acceso global
+- ⚙️ **Context API - createContext** Permite crear un 'contexto' de acceso global
 - 🛠️ **useReducer** para la gestión de un state avanzado
 - 💽 **useMemo** para optimizar los cálculos en caché
-- **customHook** *useBudget.ts* Permite el acceso al 'contexto' en una simple importación
+- 🔧 **customHook** *useBudget.ts* Permite el acceso al 'contexto' en una simple importación
 
 ## 🛠️ React Hooks utilizados
 
