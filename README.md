@@ -17,7 +17,7 @@ A boilerplate is implemented using Context API and useReducer to manage the stat
 
 ### ↓ Preview
 
-![app_gif](url)
+![preview_gif](https://github.com/user-attachments/assets/327754e6-b7f4-48aa-8dac-6cd6f4855ae1)
 
 ## Features
 
@@ -206,7 +206,7 @@ Se implementa un boilerplate mediante el uso de Context API y el uso de useReduc
 
 ### ↓ Vista previa
 
-![app_gif](url)
+![preview_gif](https://github.com/user-attachments/assets/327754e6-b7f4-48aa-8dac-6cd6f4855ae1)
 
 ## Características
 
